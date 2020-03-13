@@ -43,10 +43,10 @@ def scanSingle(target, ICMPping, min_port, max_port, randomip, random_ports):
 			print(closed_filtered[x])
 
 def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scantype):
-	#x = target.split(".")
-	#x4 = x[3].split("-")
-	#low = x[0] + "." + x[1] + "." + x[2] + "." + x4[0]
-	#high = x[0] + "." + x[1] + "." + x[2] + "." + x4[1]
+	x = target.split(".")
+	x4 = x[3].split("-")
+	low = x[0] + "." + x[1] + "." + x[2] + "." + x4[0]
+	high = x[0] + "." + x[1] + "." + x[2] + "." + x4[1]
 	closed_filtered = []
 	iplist = []
 
@@ -59,15 +59,8 @@ def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scan
 		leScanner.validCheck(min_port, max_port)
 		ports = buildlist(min_port, max_port)
 
-	if(scantype == 3):
-		x = target.split(".")
-		x4 = x[3].split("-")
-		low = x[0] + "." + x[1] + "." + x[2] + "." + x4[0]
-		high = x[0] + "." + x[1] + "." + x[2] + "." + x4[1]
-		iplist = iptest.multiIp(low, high)
-	else:
-		print(target)
-		iplist = iptest.cidrIp(target)
+	iplist = iptest.multiIp(low, high)
+	
 
 	if(randomip == "Y" or randomip == "y"):
 		iplist = randomlist(iplist)
@@ -92,7 +85,7 @@ def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scan
 
 	display_filtered_closed = input("[*] Want to see a list of closed/filtered ports ? [Y/n]: ")
 	
-	if (display_filtered_closed == "Y"):
+	if (display_filtered_closed == "Y" or display_filtered_closed == "y"):
 		print("-" * 60)
 		for x in range(len(closed_filtered)):
 			print(closed_filtered[x])

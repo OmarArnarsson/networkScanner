@@ -62,14 +62,14 @@ def mainscan(IP, ports):
 	global target
 	target = IP
 	closed_filtered = []
-
+	ports_scanned = 0
 	#start_clock = datetime.now() # Start clock for scan time
 	
 	#print("[*] Scanning Started at " + strftime("%H:%M:%S") + "!\n") # Confirm scan start
 
-
 	for port in ports: # Iterate through range of ports
 		status = scanport(port) # Feed each port into scanning function
+		ports_scanned += 1
 		if status == True: # Test result 
 			print("Port " + str(port) + ": Open") # Print status
 		elif status == False:
@@ -79,6 +79,7 @@ def mainscan(IP, ports):
 			closed_filtered.append("Port " + str(port) + ": Filtered")
 			#print("Port " + str(port) + ": Filtered")
 
+	print("Total number of ports scanned: " + str(ports_scanned))
 	#stop_clock = datetime.now() # Stop clock for scan time
 	#total_time = stop_clock - start_clock # Calculate scan time
 	#print("\n[*] Scanning Finished!") # Confirm scan stop

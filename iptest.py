@@ -2,14 +2,6 @@ from ipaddress import ip_address
 from ipaddress import ip_network
 from ipaddress import summarize_address_range
 
-def cidrIp(cidr):
-	x = []
-	nw = ip_network(cidr)
-	for ip in nw:
-		x.append(str(ip))
-	print(x)
-	return x
-
 # Þetta má nota til að smíða lista af IP tölum út frá netrange þ.e. 
 # 10.0.20.10 til 10.0.20.50 i þessu dæmi.
 #
