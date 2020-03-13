@@ -1,4 +1,4 @@
-/pythonsnippets
-/__pycache__
-/scanner
+pythonsnippets/
+__pycache__/
+scanner/
 .leScanner_fallback.py
