@@ -2,15 +2,19 @@
 from logging import getLogger, ERROR # Import Logging Things
 getLogger("scapy.runtime").setLevel(ERROR) # Get Rid if IPv6 Warning
 from scapy.all import * # The One and Only Scapy
-import sys 
+import sys
 import random
-#import regex
 from datetime import datetime # Other stuff
 from time import strftime
 target = ""
 SYNACK = 0x12 # Set flag values for later reference
 RSTACK = 0x14
 
+#
+################
+# Function that validates the ports from input
+################
+#
 def validCheck(min_port, max_port):
 	try:
 		if int(min_port) >= 0 and int(max_port) >= 0 and int(max_port) >= int(min_port): # Test for valid range of ports
@@ -24,8 +28,13 @@ def validCheck(min_port, max_port):
 		print("[!] Exiting...")
 		sys.exit(1)
 
-
-def checkhost(ip): # Function to check if target is up
+#
+##################
+# checkhost checks if host is up and reports back
+# Only activates if user input is "Y" to ICMP ping
+##################
+#
+def checkhost(ip):
 	conf.verb = 0 # Hide output
 	try:
 		ping = sr1(IP(dst = ip)/ICMP()) # Ping the target
@@ -35,7 +44,13 @@ def checkhost(ip): # Function to check if target is up
 		print("[!] Exiting...")
 		sys.exit(1)
 
-def scanport(port): # Function to scan a given port
+#
+####################
+# Function that scans a given port using SYN scan
+# Takes in a single port
+####################
+#
+def scanport(port):
 	try:
 		srcport = RandShort() # Generate Port Number
 		conf.verb = 0 # Hide output
@@ -57,36 +72,29 @@ def scanport(port): # Function to scan a given port
 		print("[*] Exiting...")
 		sys.exit(1)
 
-
+#
+#################
+# The mainscanner function takes in the IP and the ports to scan
+# For every single port scanned it calls the scanport function
+# IP is the target from input (str)
+# ports are the ports from input (list)
+#################
+#
 def mainscan(IP, ports):
 	global target
 	target = IP
 	closed_filtered = []
 	ports_scanned = 0
-	#start_clock = datetime.now() # Start clock for scan time
-	
-	#print("[*] Scanning Started at " + strftime("%H:%M:%S") + "!\n") # Confirm scan start
 
 	for port in ports: # Iterate through range of ports
 		status = scanport(port) # Feed each port into scanning function
 		ports_scanned += 1
-		if status == True: # Test result 
-			print("Port " + str(port) + ": Open") # Print status
+		if status == True: # Test result
+			print("Port " + str(port) + ": Open") # Print open ports instantly
 		elif status == False:
 			closed_filtered.append("Port " + str(port) + ": Closed")
-			#print("Port " + str(port) + ": Closed")
 		else:
 			closed_filtered.append("Port " + str(port) + ": Filtered")
-			#print("Port " + str(port) + ": Filtered")
 
 	print("Total number of ports scanned: " + str(ports_scanned))
-	#stop_clock = datetime.now() # Stop clock for scan time
-	#total_time = stop_clock - start_clock # Calculate scan time
-	#print("\n[*] Scanning Finished!") # Confirm scan stop
-	#print("[*] Total Scan Duration: " + str(total_time)) # Print scan time
-	return closed_filtered
-	#display_filtered_closed = input("[*] Want to see a list of closed/filtered ports ? [Y/n]: ")
-
-	#if (display_filtered_closed == "Y"):
-		#for x in range(len(closed_filtered)):
-			#print(closed_filtered[x])
+	return closed_filtered #Returns the list of all closed/filtered ports
