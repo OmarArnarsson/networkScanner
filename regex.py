@@ -1,13 +1,17 @@
-import argparse
 import re
 
-
+#
+##############
+# Function that uses regular expressions to decide the input
+# If a single ip or a netrange will occur
+##############
+#
 def checktype(ip):
     match = re.search("^[a-zA-Z].*", ip)
     singleip = re.search("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip)
     multiip = re.search("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\-([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip)
     CIDR = re.search("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|1[0-9]|2[0-4])$", ip)
-    
+
     if match:
         print("-" * 60)
         print("You have chosen to scan a single address")

@@ -85,16 +85,20 @@ def mainscan(IP, ports):
 	target = IP
 	closed_filtered = []
 	ports_scanned = 0
-
+	wellknown = [7, 9, 13, 17, 19, 21, 22, 23, 25, 26, 37, 53, 79, 80, 81, 82, 88, 100, 106, 110, 111, 113, 119, 135, 139, 143, 144, 179, 199, 389, 427, 443, 444, 445, 465, 513, 514, 515, 543, 544, 548, 554, 587, 631, 646, 808,873, 990, 993, 995]
+	wellknwn_names = ["echo", "discard", "daytime", "qotd", "chargen", "ftp", "ssh", "telnet", "smtp", "rsftp", "time", "domain", "finger", "http", "hosts2-ns", "xfer", "kerberos-sec", "newacct", "pop3pw", "pop3", "rpcbind", "ident", "nntp", "msrpc", "netbios-ssn", "imap", "news", "bgp", "smux", "ldap", "svrloc", "https", "snpp", "microsoft-ds", "smtps", "login", "shell", "printer", "klogin", "kshell", "afp", "rtsp", "submission", "ipp", "ldp", "ccproxy-http", "rsync", "ftps", "imaps", "pop3s" ]
 	for port in ports: # Iterate through range of ports
 		status = scanport(port) # Feed each port into scanning function
 		ports_scanned += 1
 		if status == True: # Test result
-			print("Port " + str(port) + ": Open") # Print open ports instantly
+			print("Port " + str(port) + ": Open")
+			if filter(lambda x: str(port) in x, wellknown):
+				foo = wellknown.index(port)
+				print(" This port is well known for using: " + wellknwn_names[foo]) # Print open ports instantly
 		elif status == False:
 			closed_filtered.append("Port " + str(port) + ": Closed")
 		else:
 			closed_filtered.append("Port " + str(port) + ": Filtered")
 
 	print("Total number of ports scanned: " + str(ports_scanned))
-	return closed_filtered #Returns the list of all closed/filtered ports
+	return closed_filtered # Returns the list of all closed/filtered ports
