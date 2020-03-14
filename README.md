@@ -17,6 +17,8 @@
 * Then follow the instructions
     * To scan a single IP or address : 192.168.0.1 or scanme.nmap.org
     * To scan a netrange : 192.168.0.1-30 where 30 is the max port
+
+### Note :
  When prompted for min / max port you can simply press enter and leave it empty and our portscanner will scan for the top 50 ports.
 
 #### A typical port scanner that can scan a single IP or a netrange and prints open ports!
