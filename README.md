@@ -4,7 +4,7 @@
 
 ## Caution : Only scan addresses you have permission to scan. We take no responsibility for your actions.
 
-## You can download the repo and we recommend using virtualenv. To do so make sure you have virtualenv installed and follow these steps:
+#### You can download the repo and we recommend using virtualenv. To do so make sure you have virtualenv installed and follow these steps:
 * Setting up virtual env
     * 1. virtualenv -p python3 virtualenv
     * 2. source VENV/bin/activate

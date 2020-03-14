@@ -2,8 +2,10 @@ from ipaddress import ip_address
 from ipaddress import ip_network
 from ipaddress import summarize_address_range
 
-# Þetta má nota til að smíða lista af IP tölum út frá netrange þ.e. 
-# 10.0.20.10 til 10.0.20.50 i þessu dæmi.
+#
+###########
+# Creates a list if user is scanning a netrange
+###########
 #
 def multiIp(low, high):
 	x = []
@@ -12,4 +14,3 @@ def multiIp(low, high):
 		for ip in nw:
 			x.append(str(ip))
 	return x
-
