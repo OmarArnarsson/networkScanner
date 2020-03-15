@@ -17,7 +17,7 @@ def randomlist(mlist):
 # If a single address or IP is input this function will occur
 ################
 #
-def scanSingle(target, ICMPping, min_port, max_port, randomip, random_ports):
+def scanSingle(target, ICMPping, min_port, max_port, randomip, random_ports, ForS):
 	closed_filtered = []
 
 	if(ICMPping == "Y" or ICMPping == "y"):
@@ -35,7 +35,12 @@ def scanSingle(target, ICMPping, min_port, max_port, randomip, random_ports):
 	start_clock = datetime.now() # Start clock for scan time
 	print("[*] Scanning Started at " + strftime("%H:%M:%S") + "!\n") # Confirm scan start
 
-	closed_filtered = leScanner.mainscan(target, ports)
+	if(ForS == "S" or ForS == "s"):
+		print("[*] Initiating stealth scan")
+		closed_filtered = leScanner.mainscan(target, ports, 0)
+	else:
+		print("[*] Initiating Full TCP scan (with 3 way handshake)")
+		closed_filtered = leScanner.mainscan(target, ports, 1)
 
 	stop_clock = datetime.now() # Stop clock for scan time
 	total_time = stop_clock - start_clock # Calculate scan time
@@ -55,7 +60,7 @@ def scanSingle(target, ICMPping, min_port, max_port, randomip, random_ports):
 # If multiple targets / netrange is input this function will occur
 ###############
 #
-def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scantype):
+def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scantype, ForS):
 	x = target.split(".")
 	x4 = x[3].split("-")
 	low = x[0] + "." + x[1] + "." + x[2] + "." + x4[0]
@@ -81,12 +86,21 @@ def scanMulti(target, ICMPping, min_port, max_port, randomip, random_ports, scan
 	if(random_ports == "Y" or random_ports == "y"):
 			random.shuffle(ports)
 
+	if(ForS == "S" or ForS == "s"):
+		print("[*] Initiating stealth scan")
+	else:
+		print("[*] Initiating Full TCP scan (with 3 way handshake)")
+
 	start_clock = datetime.now() # Start clock for scan time
 	print("[*] Scanning Started at " + strftime("%H:%M:%S") + "!\n") # Confirm scan start
 
 	for x in range(len(iplist)): # For every IP call the mainscanner
-		tmp = leScanner.mainscan(iplist[x], ports)
-		closed_filtered.append(iplist[x])
+		if(ForS == "S" or ForS == "s"):
+			tmp = leScanner.mainscan(iplist[x], ports, 0)
+			closed_filtered.append(iplist[x])
+		else:
+			tmp = leScanner.mainscan(iplist[x], ports, 1)
+			closed_filtered.append(iplist[x])
 		for x in range(len(tmp)):
 			closed_filtered.append(tmp[x])
 		closed_filtered.append("-" * 60)
