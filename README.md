@@ -22,9 +22,10 @@
  When prompted for min / max port you can simply press enter and leave it empty and our portscanner will scan for the top 50 ports.
 
 #### A typical port scanner that can scan a single IP or a netrange and prints open ports!
- After scanning it will prompt you if you want to display closed/filtered ports.
- This was a school project for "Computer System Security" at the University of Iceland.
+ This was a school project for "Computer System Security" at the University of Iceland. Reasons for port scanning can be twofold. On one hand as administrator it's good to verify security policies of their networks and keep an eye on which ports are open and secure them. On the other hand port scanning can be used by attackers to identify network services running on a host and exploit their vulnerabilities.
+ A port scan per say is simply a process that sends client requests to a single or a range of server ports / addresses on a host. 
 
 
 ## Made by :
 Ómar Þór Arnarsson & Viktor Þór Freysson
+otha3@hi.is & vthf1@hi.is
