@@ -128,9 +128,9 @@ def mainscan(IP, ports, scan):
 				if filter(lambda x: str(port) in x, wellknown):
 					foo = wellknown.index(port)
 					print(" This port is well known for using: " + wellknwn_names[foo]) # Print open ports instantly
-				elif status == False:
+			elif status == False:
 					closed_filtered.append("Port " + str(port) + ": Closed")
-				else:
+			else:
 					closed_filtered.append("Port " + str(port) + ": Filtered")
 	else:
 		for port in ports: # Iterate through range of ports
@@ -141,10 +141,10 @@ def mainscan(IP, ports, scan):
 				if filter(lambda x: str(port) in x, wellknown):
 					foo = wellknown.index(port)
 					print(" This port is well known for using: " + wellknwn_names[foo]) # Print open ports instantly
-				elif status == False:
-					closed_filtered.append("Port " + str(port) + ": Closed")
-				else:
-					closed_filtered.append("Port " + str(port) + ": Filtered")
+			elif status == False:
+				closed_filtered.append("Port " + str(port) + ": Closed")
+			else:
+				closed_filtered.append("Port " + str(port) + ": Filtered")
 
 	print("Total number of ports scanned: " + str(ports_scanned))
 	return closed_filtered # Returns the list of all closed/filtered ports
